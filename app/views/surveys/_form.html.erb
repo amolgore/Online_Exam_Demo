@@ -1,0 +1,27 @@
+<%= nested_form_for(@survey) do |f| %>
+  <% if @survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+
+      <ul>
+        <% @survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <%= f.fields_for :questions do |questions_for_form| %>
+    <%= render 'question_fields', f: questions_for_form %>
+  <% end %>
+  <%= f.link_to_add "Add Question",  :questions %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

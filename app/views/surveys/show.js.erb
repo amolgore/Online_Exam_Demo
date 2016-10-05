@@ -1,0 +1,9 @@
+$('#surveys').append('<%= escape_javascript render(@survey) %>');
+<% if @questions_by_set_with_paginate.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@questions_by_set_with_paginate) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
+
+
+

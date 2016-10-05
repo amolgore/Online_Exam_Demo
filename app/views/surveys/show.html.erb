@@ -1,0 +1,57 @@
+
+<strong>Name:</strong>
+<%= @survey.name %><br/>
+
+<div id="surveys">
+  <div class="survey">
+      <%= render @survey %>
+  </div>
+
+</div>
+
+
+
+<%= will_paginate @questions_by_set_with_paginate %>
+
+<script>
+
+ $(document).on("change", ":checkbox", function(){
+      var option_id = $(this).attr("value");
+      var que = this.id.split('_').pop();
+      var ans = this.value;
+      var is_checked = true
+      
+      if($(this).is(":checked"))
+        {
+          
+         $.ajax({
+              type: "POST",
+              url: '/submitAnswers',
+              data: { que : que, ans : ans, is_checked: is_checked },
+              success: function(data){
+                 return false;
+              },  
+              failure: function(data){
+                 return false;
+              } 
+          });
+        }
+      else
+        {
+          $.ajax({
+              type: "DELETE",
+              url: '/deleteAnswers',
+              data: { option_id: option_id},
+              success: function(data){
+                return false;
+              },  
+              failure: function(data){
+                return false;
+              } 
+
+          });
+          return false;
+        }
+    });
+ 
+</script>

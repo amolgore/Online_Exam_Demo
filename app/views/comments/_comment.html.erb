@@ -1,0 +1,10 @@
+<% @comments.each do |comment| %>
+  <tr>
+    <td><%= comment.body %></td>
+  </tr>
+  <% comment.children.each do |child| %>
+    <tr>
+      <td><%= child.body %></td>
+    </tr>
+  <% end %>
+<% end %>

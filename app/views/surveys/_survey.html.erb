@@ -1,0 +1,20 @@
+<%= form_for @survey do |f| %>
+  <% @questions_by_set_with_paginate.each do |question| -%>
+      <b>Question:</b><%= question.content %> <br />
+      <b>Options:</b><br /> 
+      <% question.options.each do |option| %>
+          <% checked_answer(option)%>
+          <% if current_user.has_role?"teacher"%>
+      	 	   <%= f.check_box :id,  checked: option.is_correct%>
+          <% else %>
+            <%= check_box_tag "question[#{question.id}]", option.id, 
+            @answer %>
+          <%end%>
+      	  <%= option.option_text %><br />
+      <%end %><br />
+  <% end %>
+ <% if (current_user.has_role? "student") && (@questions_by_set_with_paginate.current_page == @questions_by_set_with_paginate.total_pages) %>
+   <%= link_to 'submit Test',submit_answer_path(id:survey.id), method: "patch",remote: true %> 
+   <br />
+ <% end %> 
+<% end %>

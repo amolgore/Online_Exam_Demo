@@ -1,0 +1,11 @@
+<fieldset>
+  <%= f.label :text, "Question" %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :_destroy %>
+  <%= f.link_to_remove "remove"%>
+
+  <%= f.fields_for :options do |options_for_form| %>
+    <%= render 'option_fields', f: options_for_form %>
+  <% end %>
+  <%= f.link_to_add "Add answer", :options %>
+</fieldset>
